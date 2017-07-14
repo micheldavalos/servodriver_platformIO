@@ -12,25 +12,49 @@ uint8_t Motores::agregarMotor(uint8_t id)
 
   if (nuevo != 0)
   {
+
     uint8_t status = nuevo->init();
     if(status!=DYN_STATUS_OK)
     {
-      return false;
+      return 2;
     }
     nuevo->enableTorque();
     nuevo->jointMode(204, 820);
     nuevo->speed(speed);
-
+    
     motores.push_back(nuevo);
 
-    return true;
+    return 1;
   }
 
-  return false;
+  return 0;
 
 }
 
-void Motores::mover(uint8_t id, uint16_t pos)
+bool Motores::mover(uint8_t id, uint16_t pos)
 {
-  motores[0]->goalPosition(pos);
+  DynamixelMotor* temp = buscar_motor(id);
+  if (temp != 0)
+  {
+    temp->goalPosition(pos);
+
+    return true;
+  }
+  return false;
+}
+
+DynamixelMotor* Motores::buscar_motor(uint8_t id)
+{
+  size_t tam = motores.size();
+  size_t i;
+
+  for(size_t i = 0; i < tam; i++)
+  {
+    if (motores[i]->id() == id)
+    {
+      return motores[i];
+    }
+  }
+  return 0;
+
 }

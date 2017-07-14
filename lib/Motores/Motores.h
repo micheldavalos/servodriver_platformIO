@@ -8,14 +8,12 @@
 
 using namespace std;
 
-
-
 class Motores
 {
 public:
     Motores();
     uint8_t agregarMotor(uint8_t id);
-    void mover(uint8_t id, uint16_t pos);
+    bool mover(uint8_t id, uint16_t pos);
 
 private:
     // DynamixelMotor arreglo_motores[NUM_MOTORS];
@@ -23,7 +21,7 @@ private:
     const long unsigned int baudrate = 1000000;
     int16_t speed;
     HardwareDynamixelInterface interface;
-
+    DynamixelMotor* buscar_motor(uint8_t id);
 };
 
 #endif // MOTORES_H
