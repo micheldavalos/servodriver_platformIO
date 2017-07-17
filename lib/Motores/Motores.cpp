@@ -2,8 +2,12 @@
 
 Motores::Motores():interface(Serial1), speed(512)
 {
+  // interface.begin(baudrate);
+  // delay(100);
+}
+void Motores::inicia()
+{
   interface.begin(baudrate);
-  delay(100);
 }
 
 uint8_t Motores::agregarMotor(uint8_t id)
@@ -21,7 +25,7 @@ uint8_t Motores::agregarMotor(uint8_t id)
     nuevo->enableTorque();
     nuevo->jointMode(204, 820);
     nuevo->speed(speed);
-    
+
     motores.push_back(nuevo);
 
     return 1;

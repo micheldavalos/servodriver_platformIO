@@ -12,6 +12,7 @@ class Motores
 {
 public:
     Motores();
+    void inicia();  
     uint8_t agregarMotor(uint8_t id);
     bool mover(uint8_t id, uint16_t pos);
 
